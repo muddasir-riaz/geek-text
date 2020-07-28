@@ -42,6 +42,9 @@ app.use("/index", index);
 const user = require("./routes/api/user.js");
 app.use("/user", user);
 
+const reviewsRoute = require('./routes/api/reviews');
+app.use('/reviews', reviewsRoute);
+
 app.use(express.json());
 
 app.listen(port, () => {
