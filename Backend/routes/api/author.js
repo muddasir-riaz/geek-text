@@ -1,6 +1,6 @@
 
 const router = require('express').Router();
-let Author = require('../models/author.model');
+let Author = require('../../models/author.model');
 
 router.route('/').get((req, res) => {
     Author.find()
