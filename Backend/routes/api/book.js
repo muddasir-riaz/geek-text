@@ -8,6 +8,18 @@ router.route('/').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/retrieveByISBN').get((req, res) => {
+  Book.find({isbn: req.body.isbn})
+    .then(book => res.json(book))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.route('/retrieveByAuthor').get((req, res) => {
+  Book.find({author: req.body.author})
+    .then(book => res.json(book))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
 router.route('/add').post((req, res) => {
     const title = req.body.title;
     const author = req.body.author;
