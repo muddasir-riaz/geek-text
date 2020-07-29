@@ -45,6 +45,9 @@ app.use("/user", user);
 const reviewsRoute = require('./routes/api/reviews');
 app.use('/reviews', reviewsRoute);
 
+const bookRouter = require('./routes/api/book');
+app.use('/book', bookRouter);
+
 app.use(express.json());
 
 app.listen(port, () => {
