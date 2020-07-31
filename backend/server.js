@@ -51,6 +51,9 @@ app.use('/book', bookRouter);
 const authorRouter = require('./routes/api/author');
 app.use('/author', authorRouter);
 
+const booksortingRouter = require('./routes/api/booksorting');
+app.use('/booksorting', booksortingRouter);
+
 app.use(express.json());
 
 app.listen(port, () => {
