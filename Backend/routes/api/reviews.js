@@ -23,20 +23,25 @@ router.route('/average').get((req, res)=>{
     .catch(err => res.status(400).json('Error: ' + err));
 });
 router.route('/addReview').post((req, res) => {
-    const usernameAndTitle = req.body.username.concat("~",req.body.booktitle);
-    const username = req.body.username;
+    const usernameAndTitle = req.body.username.toLowerCase().concat("~",req.body.booktitle);
+    const username = req.body.username.toLowerCase();
     const booktitle = req.body.booktitle;
+    const rating = req.body.rating;
     const textBox = req.body.textBox;
 
-    const newReview = new Review({usernameAndTitle, booktitle, username, textBox});
+    const newReview = new Review({usernameAndTitle, booktitle, username, rating, textBox});
+    Rating.deleteOne({usernameAndTitle: req.body.username.concat("~",req.body.booktitle)}).then(()=> console.log("Successfull"));
     newReview.save()
     .then(()=> res.json('Review Added'))
     .catch(err =>res.status(400).json('Error: '+ err));
+    
+    const newRating = new Rating({usernameAndTitle, booktitle, username, rating});
+    newRating.save();
 });
 
 router.route('/addRating').post((req, res) => {
-    const usernameAndTitle = req.body.username.concat("~",req.body.booktitle);
-    const username = req.body.username;
+    const usernameAndTitle = req.body.username.toLowerCase().concat("~",req.body.booktitle);
+    const username = req.body.username.toLowerCase();
     const booktitle = req.body.booktitle;
     const rating = req.body.rating;
 
