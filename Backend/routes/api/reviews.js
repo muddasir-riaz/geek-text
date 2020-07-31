@@ -1,6 +1,6 @@
 const router = require('express').Router();
 let Review = require('../../models/review.model');
-let Raiting = require('../../models/raiting.model')
+let Raiting = require('../../models/rating.model')
 const { route } = require('./auth');
 
 router.route('/').get((req, res)=>{
@@ -8,6 +8,7 @@ router.route('/').get((req, res)=>{
     .then(reviews => res.json(reviews))
     .catch(err => res.status(400).json('Error: ' + err));
 });
+
 router.route('/average').get((req, res)=>{
     Raiting.find({booktitle: req.body.booktitle})
     .then(reviews => {
@@ -33,15 +34,15 @@ router.route('/addReview').post((req, res) => {
     .catch(err =>res.status(400).json('Error: '+ err));
 });
 
-router.route('/addRaiting').post((req, res) => {
+router.route('/addRating').post((req, res) => {
     const usernameAndTitle = req.body.username.concat("~",req.body.booktitle);
     const username = req.body.username;
     const booktitle = req.body.booktitle;
-    const raiting = req.body.raiting;
+    const rating = req.body.raiting;
 
-    const newRaiting = new Raiting({usernameAndTitle, booktitle, username, raiting});
+    const newRaiting = new Raiting({usernameAndTitle, booktitle, username, rating});
     newRaiting.save()
-    .then(()=> res.json('Raiting Added'))
+    .then(()=> res.json('Rating Added'))
     .catch(err =>res.status(400).json('Error: '+ err));
 });
 
