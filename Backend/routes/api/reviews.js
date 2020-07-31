@@ -38,10 +38,10 @@ router.route('/addRating').post((req, res) => {
     const usernameAndTitle = req.body.username.concat("~",req.body.booktitle);
     const username = req.body.username;
     const booktitle = req.body.booktitle;
-    const rating = req.body.raiting;
+    const rating = req.body.rating;
 
-    const newRaiting = new Raiting({usernameAndTitle, booktitle, username, rating});
-    newRaiting.save()
+    const newRating = new Raiting({usernameAndTitle, booktitle, username, rating});
+    newRating.save()
     .then(()=> res.json('Rating Added'))
     .catch(err =>res.status(400).json('Error: '+ err));
 });
