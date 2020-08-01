@@ -13,11 +13,6 @@ router.route('/genre').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/rating').get((req, res) => {
-    Information.find({rating: req.body.rating}).sort({rating: -1})
-    .then(booksorting => res.json(booksorting))
-    .catch(err => res.status(400).json('Error: ' + err));
-});
 router.route('/copiessold').get((req, res) => {
     Information.find().sort({copiesSold: -1}).limit(10)
     .then(booksorting => res.json(booksorting))
