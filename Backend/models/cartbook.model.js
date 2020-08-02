@@ -13,4 +13,6 @@ const bookSchema = new mongoose.Schema ( {
     }
 })
 
-module.exports = Book = mongoose.model('book', bookSchema )
+const Book = mongoose.model('cartbook', bookSchema);
+
+module.exports = Book;
