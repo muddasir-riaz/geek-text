@@ -54,8 +54,8 @@ app.use('/author', authorRouter);
 const booksortingRouter = require('./routes/api/booksorting');
 app.use('/booksorting', booksortingRouter);
 
-//const scartRouter = require('./routes/api/shoppingcart');
-//app.use('/scart', scartRouter);
+const shoppingcartRouter = require('./routes/api/shoppingcart');
+app.use('/shoppingcart', shoppingcartRouter);
 
 app.use(express.json());
 //sample line
