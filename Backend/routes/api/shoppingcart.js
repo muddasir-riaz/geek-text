@@ -18,27 +18,47 @@ router.post('/create', (req, res) => {
   }))
 });
 
-
-
 router.post('/addBook', (req, res) => {
-    User.findById(req.params.id)
-    .then(Book.find({isbn:req.params.isbn})
-      .then())
+Book.find({isbn:req.params.bookISBN} , function(err, book){
+  if (err) res.status(404).json({ msg: 'Book unavailable' })
+  else {
+    Cart.findOneAndUpdate(req.params.cartID , { 
+      $inc: { quantity: 1 },
+      $push: {
+        'items':  {
+          book
+        }
+    }, 
   
-  });
-  
-  
-
-  router.delete('/deleteBook' , (req, res) => {
-    User.findById(req.params.id)
-    .then(Book.find({isbn:req.params.isbn})
-      .then())
-    
-    
-    
-    
-   
   })
+    .then(cart => res.json(cart))
+    .catch(err => res.status(404).json({ msg: 'Book unavailable' }));             
+  }
+});
+
+});
+
+
+
+router.delete('/deleteBook' , (req, res) => {
+Book.find({isbn:req.params.bookISBN} , function(err, book){
+  if (err) res.status(404).json({ msg: 'Book unavailable' })
+  else {
+    Cart.findOneAndDelete(req.params.cartID , { 
+      $pull: {
+        'items':  {
+          book
+        }
+    }, 
+  
+  })
+  
+    .then(cart => res.json(cart))
+    .catch(err => res.status(404).json({ msg: 'Book unavailable' }));             
+  }
+});
+})
+
 
 router.get('/getcart' , (req, res) => {
   Cart.find()
@@ -48,3 +68,4 @@ router.get('/getcart' , (req, res) => {
 
 
 module.exports = router;
+
