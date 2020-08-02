@@ -11,6 +11,6 @@ const ratingSchema = new Schema({
     timestamps: true,
 });
 
-const Rating = mongoose.model('Rating', ratingSchema);
+const Rating = mongoose.model('rating', ratingSchema);
 
 module.exports = Rating;

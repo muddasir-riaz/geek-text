@@ -12,7 +12,8 @@ const bookSchema = new Schema({
   genre: { type: String, required: true },
   yearPublished: { type: Number, required: true, minlength: 4, maxlength: 4 },
   price: { type: Number, required: true },
-  copiesSold: { type: Number, required: true }
+  copiesSold: { type: Number, required: true },
+  rating: {type: Number, required: false, default: 0 }
 });
 
 const Book = mongoose.model('Book', bookSchema);

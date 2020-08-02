@@ -33,6 +33,9 @@ connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
 
+const reviewsRoute = require('./routes/api/reviews');
+app.use('/reviews', reviewsRoute);
+
 const auth = require("./routes/api/auth.js");
 app.use("/auth", auth);
 
@@ -41,9 +44,6 @@ app.use("/index", index);
 
 const user = require("./routes/api/user.js");
 app.use("/user", user);
-
-const reviewsRoute = require('./routes/api/reviews');
-app.use('/reviews', reviewsRoute);
 
 const bookRouter = require('./routes/api/book');
 app.use('/book', bookRouter);
@@ -54,8 +54,13 @@ app.use('/author', authorRouter);
 const booksortingRouter = require('./routes/api/booksorting');
 app.use('/booksorting', booksortingRouter);
 
+const scartRouter = require('./routes/api/shoppingcart');
+app.use('/scart', scartRouter);
+
 app.use(express.json());
 //sample line
+
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
+  

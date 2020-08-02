@@ -30,6 +30,7 @@ router.route('/add').post((req, res) => {
     const yearPublished = req.body.yearPublished;
     const price = req.body.price;
     const copiesSold = req.body.copiesSold;
+    const rating = req.body.rating;
   
     const newBook = new Book({
       title,
@@ -41,6 +42,7 @@ router.route('/add').post((req, res) => {
       yearPublished,
       price,
       copiesSold,
+      rating,
     });
   
     newBook.save()

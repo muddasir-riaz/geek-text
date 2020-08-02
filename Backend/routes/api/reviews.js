@@ -1,7 +1,8 @@
 const router = require('express').Router();
 let Review = require('../../models/review.model');
-let Rating = require('../../models/rating.model')
-const { route } = require('./auth');
+let Rating = require('../../models/rating.model');
+let Book = require('../../models/book.model');
+//const { route } = require('./auth');
 
 router.route('/').get((req, res)=>{
     Review.find({booktitle: req.body.booktitle}).sort({rating: -1})
@@ -10,6 +11,8 @@ router.route('/').get((req, res)=>{
 });
 
 router.route('/average').get((req, res)=>{
+    let this_title = req.body.booktitle;
+    //Book.updateOne({isbn: 1234},{$set: {copiesSold: 2}}).then(()=> console.log("Successfull" + this_title + 2));
     Rating.find({booktitle: req.body.booktitle})
     .then(ratings => {
         let average = 0;
@@ -18,6 +21,7 @@ router.route('/average').get((req, res)=>{
             average = average + r.rating;
             count +=1;
         });
+        Book.updateOne({title: this_title},{$set: {rating:(average/count).toFixed(1)}}).then(()=>console.log());
         res.json((average/count).toFixed(1));
     })
     .catch(err => res.status(400).json('Error: ' + err));
